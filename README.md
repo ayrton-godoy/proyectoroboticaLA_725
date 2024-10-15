@@ -1,9 +1,10 @@
 # ProyectoroboticaLA_725
-Ayrton Godoy
-Luciano Pino
-Francisca Piagio
-Zahira Cuevas
-Sebastian Saltzmann
+Integrantes del equipo
+Ayrton Godoy,
+ Luciano Pino,
+ Francisca Piagio,
+ Zahira Cuevas y
+ Sebastian Saltzmann.
 Resumen del proyecto:
 
 Objetivos del proyecto:
