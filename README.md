@@ -28,4 +28,4 @@ Trello (https://trello.com/b/5wYd6dgk/robotica)
 
 Drive (https://docs.google.com/document/d/1c1guEwFnkj4FhIHjZxaMyLG1qHTo9x0J-kORScTO0Ao/edit#heading=h.hfcmfafkksvr)
 
-figma (https://www.figma.com/design/Nzt0seTwSr1sbfYMcuvQVg/Untitled?node-id=0-1&node-type=canvas&t=KzlRS6MWcdDnt59X-0)
+Canva https://www.canva.com/design/DAGTpAeDqXU/dQeqZDFLbW26HAScjktDbw/view?utm_content=DAGTpAeDqXU&utm_campaign=designshare&utm_medium=link&utm_source=editor 
