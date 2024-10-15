@@ -1,4 +1,13 @@
 # proyectoroboticaLA_725
+Ayrton Godoy
+Luciano Pino
+Francisca Piagio
+Zahira Cuevas
+Sebastian Saltzmann
+
+
+
+
 
 # Lenguajes (html,css,Javascript)
 # Trello (https://trello.com/b/5wYd6dgk/robotica)
