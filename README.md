@@ -5,7 +5,9 @@ Ayrton Godoy,
  Francisca Piagio,
  Zahira Cuevas y
  Sebastian Saltzmann.
-# Resumen del proyecto:
+# Resumen del proyecto: 
+El proyecto consiste en crear un sitio web utilizando HTML, CSS y JavaScript para mostrar el desarrollo de la interfaz sobre los avances del sensor de gas MQ2, que estamos realizando. Además, simulará la transmisión de datos del sensor utilizando un Arduino Nano, con el objetivo de familiarizarnos con la comunicación de datos. Usaremos materiales como cables de conexión, una placa de pruebas y Wokwi como plataforma de simulación. Primero, investigaremos el funcionamiento del sensor y luego escribiremos un programa que lea y transmita los valores del sensor a través del monitor serial, documentando todo el proceso
+
 
 # Objetivos del proyecto:
 
