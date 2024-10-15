@@ -1,23 +1,26 @@
 # ProyectoroboticaLA_725
-Integrantes del equipo
+# Integrantes del equipo
 Ayrton Godoy,
  Luciano Pino,
  Francisca Piagio,
  Zahira Cuevas y
  Sebastian Saltzmann.
-Resumen del proyecto:
+# Resumen del proyecto:
 
-Objetivos del proyecto:
-Investigar UX/UI.
+# Objetivos del proyecto:
 
-Desarrollar una interfaz gráfica para visualizar los datos transmitidos por el sensor MQ2 mediante Bluetooth.
+-Investigar UX/UI.
 
-Comprender la recepción de datos desde dispositivos Arduino en una PC.
+-Desarrollar una interfaz gráfica para visualizar los datos transmitidos por el sensor MQ2 mediante Bluetooth.
 
-Aplicar conocimientos de programación en Python o en tecnologías web (HTML, CSS y JavaScript) para crear interfaces de usuario.
+-Comprender la recepción de datos desde dispositivos Arduino en una PC.
+
+-Aplicar conocimientos de programación en Python o en tecnologías web (HTML, CSS y JavaScript) para crear interfaces de usuario.
 
 
 Lenguajes (html,css,Javascript)
+
+# Links:
 
 Trello (https://trello.com/b/5wYd6dgk/robotica)
 
