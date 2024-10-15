@@ -8,6 +8,11 @@ Ayrton Godoy,
 Resumen del proyecto:
 
 Objetivos del proyecto:
+Investigar UX/UI.
+Desarrollar una interfaz gráfica para visualizar los datos transmitidos por el sensor MQ2 mediante Bluetooth.
+Comprender la recepción de datos desde dispositivos Arduino en una PC.
+Aplicar conocimientos de programación en Python o en tecnologías web (HTML, CSS y JavaScript) para crear interfaces de usuario.
+
 
 Lenguajes (html,css,Javascript)
 
