@@ -1,77 +1,66 @@
+// Elementos HTML
+const connectButton = document.getElementById("connect-btn") as HTMLButtonElement;
+const analyzeButton = document.getElementById("analyze-btn") as HTMLButtonElement;
+const statusMessage = document.getElementById("status-message") as HTMLParagraphElement;
+
 let device: BluetoothDevice | null = null;
 let server: BluetoothRemoteGATTServer | null = null;
 let characteristic: BluetoothRemoteGATTCharacteristic | null = null;
 
-// Función para conectar el dispositivo Bluetooth
+// Función para conectar al dispositivo Bluetooth
 async function connectBluetooth() {
   try {
-    // 1. Solicita el dispositivo Bluetooth con los servicios que necesitas
+    statusMessage.textContent = "Conectando...";
+    
+    // Solicita el dispositivo con un filtro de servicio
     device = await navigator.bluetooth.requestDevice({
-      filters: [{ services: ['battery_service'] }], // Puedes cambiar 'battery_service' por el UUID de tu servicio
-      optionalServices: ['device_information'] // Incluye servicios opcionales
+      filters: [{ services: ['battery_service'] }] // Cambia el servicio según tu dispositivo
     });
 
     if (!device) {
-      console.log("No se seleccionó ningún dispositivo.");
+      statusMessage.textContent = "Dispositivo no seleccionado.";
       return;
     }
 
-    // 2. Conéctate al servidor GATT del dispositivo
+    // Conéctate al servidor GATT
     server = await device.gatt?.connect();
     if (!server) {
-      console.error("No se pudo conectar al servidor GATT.");
+      statusMessage.textContent = "No se pudo conectar al servidor GATT.";
       return;
     }
 
-    // 3. Obtén el servicio y la característica que deseas usar
+    // Obtén el servicio y la característica
     const service = await server.getPrimaryService('battery_service');
-    characteristic = await service.getCharacteristic('battery_level'); // Cambia a la característica que necesites
+    characteristic = await service.getCharacteristic('battery_level');
 
-    // 4. Lee el valor inicial de la característica
-    const value = await characteristic.readValue();
-    console.log("Nivel de batería:", value.getUint8(0));
-
-    // 5. Configura una función de escucha para cuando cambie el valor
-    characteristic.addEventListener('characteristicvaluechanged', handleCharacteristicValueChanged);
-    await characteristic.startNotifications();
-
-    console.log("Conectado al dispositivo Bluetooth.");
+    statusMessage.textContent = "Dispositivo conectado. Listo para analizar.";
   } catch (error) {
-    console.error("Error al conectar el dispositivo Bluetooth:", error);
+    console.error("Error en la conexión Bluetooth:", error);
+    statusMessage.textContent = "Error en la conexión.";
   }
 }
 
-// Función para manejar los cambios en el valor de la característica
-function handleCharacteristicValueChanged(event: Event) {
-  const target = event.target as BluetoothRemoteGATTCharacteristic;
-  const value = target.value?.getUint8(0);
-  if (value !== undefined) {
-    console.log("Nuevo valor de la característica:", value);
-  }
-}
-
-// Función para escribir datos en la característica
-async function writeBluetooth(data: Uint8Array) {
+// Función para iniciar el análisis de calidad de aire
+async function startAnalysis() {
   if (!characteristic) {
-    console.error("No hay característica para escribir.");
+    statusMessage.textContent = "Por favor, conecta un dispositivo primero.";
     return;
   }
 
   try {
-    await characteristic.writeValue(data);
-    console.log("Datos enviados:", data);
+    statusMessage.textContent = "Analizando...";
+    
+    // Lee el valor de la característica (ejemplo: nivel de batería)
+    const value = await characteristic.readValue();
+    const batteryLevel = value.getUint8(0); // Cambia la interpretación según tu dispositivo
+
+    statusMessage.textContent = `Nivel de batería: ${batteryLevel}%`; // Muestra el valor en la interfaz
   } catch (error) {
-    console.error("Error al enviar datos:", error);
+    console.error("Error en el análisis:", error);
+    statusMessage.textContent = "Error en el análisis.";
   }
 }
 
-// Función para desconectar el dispositivo
-async function disconnectBluetooth() {
-  if (device && device.gatt?.connected) {
-    device.gatt.disconnect();
-    console.log("Dispositivo desconectado.");
-  }
-}
-
-// Ejemplo de uso de la función
-connectBluetooth();
+// Event listeners para los botones
+connectButton.addEventListener("click", connectBluetooth);
+analyzeButton.addEventListener("click", startAnalysis);
