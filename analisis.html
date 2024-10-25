@@ -3,29 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Análisis de Calidad de Aire - Página 2</title>
+    <title>Análisis de Calidad de AireS</title>
     <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
     <div class="container">
         <header>
             <h1>Análisis de Calidad de Aire</h1>
-            <a href="index.html"><img class="retroseso" src="img/flecharetroseso.png.png" alt=""></a>
+            <a href="index.html"><img class="retroseso" src="img/flecharetroseso.png" alt="Retroceder"></a>
         </header>
         <section class="content">
-            <button class="start-btn">Conectar</button>
-            <button class="analyze-btn">Analizar</button>
+            <button class="start-btn" onclick="handleConnect()">Conectar</button>
+            <button class="analyze-btn" onclick="handleAnalyze()">Analizar</button>
             <div class="status-box">
-                <p>Analizando...</p>
+                <p id="statusMessage"></p>
             </div>
         </section>
         <footer>
             ©Copyright Escuela PRoA La Falda 2024. Todos los derechos reservados.
             <div class="social-icons">
-                <a href="https://www.instagram.com/proa_lafalda/"><img src="img/instagram-icon.png.png" alt="Instagram"></a>
-                <a href="https://www.facebook.com/proalafalda/"><img src="img/facebook-icon.png.png" alt="Facebook"></a>
+                <a href="https://www.instagram.com/proa_lafalda/"><img src="img/instagram-icon.png" alt="Instagram"></a>
+                <a href="https://www.facebook.com/proalafalda/"><img src="img/facebook-icon.png" alt="Facebook"></a>
             </div>
         </footer>
     </div>
+
+    <script src="script.js"></script> 
 </body>
 </html>
