@@ -28,3 +28,4 @@ function handleAnalyze() {
         statusMessage.innerText = "Análisis rechazado, no hay dispositivo conectado.";
     }, 2000);
 }
+

@@ -34,112 +34,86 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+// Elementos HTML
+var connectButton = document.getElementById("connect-btn");
+var analyzeButton = document.getElementById("analyze-btn");
+var closeButton = document.getElementById("close-btn"); // Nuevo botón
+var statusMessage = document.getElementById("status-message");
 var device = null;
 var server = null;
 var characteristic = null;
-// Función para conectar el dispositivo Bluetooth
+// Función para conectar al dispositivo Bluetooth
 function connectBluetooth() {
     return __awaiter(this, void 0, void 0, function () {
-        var service, value, error_1;
-        var _a;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
+        var service, error_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
                 case 0:
-                    _b.trys.push([0, 7, , 8]);
+                    _a.trys.push([0, 4, , 5]);
+                    statusMessage.textContent = "Conectando...";
                     return [4 /*yield*/, navigator.bluetooth.requestDevice({
-                            filters: [{ services: ['battery_service'] }], // Puedes cambiar 'battery_service' por el UUID de tu servicio
-                            optionalServices: ['device_information'] // Incluye servicios opcionales
+                            filters: [{ services: ['battery_service'] }]
                         })];
                 case 1:
-                    // 1. Solicita el dispositivo Bluetooth con los servicios que necesitas
-                    device = _b.sent();
+                    device = _a.sent();
                     if (!device) {
-                        console.log("No se seleccionó ningún dispositivo.");
-                        return [2 /*return*/];
-                    }
-                    return [4 /*yield*/, ((_a = device.gatt) === null || _a === void 0 ? void 0 : _a.connect())];
-                case 2:
-                    // 2. Conéctate al servidor GATT del dispositivo
-                    server = _b.sent();
-                    if (!server) {
-                        console.error("No se pudo conectar al servidor GATT.");
+                        statusMessage.textContent = "Dispositivo no seleccionado.";
                         return [2 /*return*/];
                     }
                     return [4 /*yield*/, server.getPrimaryService('battery_service')];
-                case 3:
-                    service = _b.sent();
+                case 2:
+                    service = _a.sent();
                     return [4 /*yield*/, service.getCharacteristic('battery_level')];
+                case 3:
+                    characteristic = _a.sent();
+                    statusMessage.textContent = "Dispositivo conectado. Listo para analizar.";
+                    return [3 /*break*/, 5];
                 case 4:
-                    characteristic = _b.sent(); // Cambia a la característica que necesites
-                    return [4 /*yield*/, characteristic.readValue()];
-                case 5:
-                    value = _b.sent();
-                    console.log("Nivel de batería:", value.getUint8(0));
-                    // 5. Configura una función de escucha para cuando cambie el valor
-                    characteristic.addEventListener('characteristicvaluechanged', handleCharacteristicValueChanged);
-                    return [4 /*yield*/, characteristic.startNotifications()];
-                case 6:
-                    _b.sent();
-                    console.log("Conectado al dispositivo Bluetooth.");
-                    return [3 /*break*/, 8];
-                case 7:
-                    error_1 = _b.sent();
-                    console.error("Error al conectar el dispositivo Bluetooth:", error_1);
-                    return [3 /*break*/, 8];
-                case 8: return [2 /*return*/];
+                    error_1 = _a.sent();
+                    console.error("Error en la conexión Bluetooth:", error_1);
+                    statusMessage.textContent = "Error en la conexión.";
+                    return [3 /*break*/, 5];
+                case 5: return [2 /*return*/];
             }
         });
     });
 }
-// Función para manejar los cambios en el valor de la característica
-function handleCharacteristicValueChanged(event) {
-    var _a;
-    var target = event.target;
-    var value = (_a = target.value) === null || _a === void 0 ? void 0 : _a.getUint8(0);
-    if (value !== undefined) {
-        console.log("Nuevo valor de la característica:", value);
-    }
-}
-// Función para escribir datos en la característica
-function writeBluetooth(data) {
+// Función para iniciar el análisis de calidad de aire
+function startAnalysis() {
     return __awaiter(this, void 0, void 0, function () {
-        var error_2;
+        var value, batteryLevel, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     if (!characteristic) {
-                        console.error("No hay característica para escribir.");
+                        statusMessage.textContent = "Por favor, conecta un dispositivo primero.";
                         return [2 /*return*/];
                     }
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 3, , 4]);
-                    return [4 /*yield*/, characteristic.writeValue(data)];
+                    statusMessage.textContent = "Analizando...";
+                    return [4 /*yield*/, characteristic.readValue()];
                 case 2:
-                    _a.sent();
-                    console.log("Datos enviados:", data);
+                    value = _a.sent();
+                    batteryLevel = value.getUint8(0);
+                    statusMessage.textContent = "Nivel de bater\u00EDa: ".concat(batteryLevel, "%");
                     return [3 /*break*/, 4];
                 case 3:
                     error_2 = _a.sent();
-                    console.error("Error al enviar datos:", error_2);
+                    console.error("Error en el análisis:", error_2);
+                    statusMessage.textContent = "Error en el análisis.";
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }
         });
     });
 }
-// Función para desconectar el dispositivo
-function disconnectBluetooth() {
-    return __awaiter(this, void 0, void 0, function () {
-        var _a;
-        return __generator(this, function (_b) {
-            if (device && ((_a = device.gatt) === null || _a === void 0 ? void 0 : _a.connected)) {
-                device.gatt.disconnect();
-                console.log("Dispositivo desconectado.");
-            }
-            return [2 /*return*/];
-        });
-    });
+// Función para cerrar la pestaña
+function closeTab() {
+    window.close(); // Cierra la pestaña
 }
-// Ejemplo de uso de la función
-connectBluetooth();
+// Event listeners para los botones
+connectButton.addEventListener("click", connectBluetooth);
+analyzeButton.addEventListener("click", startAnalysis);
+closeButton.addEventListener("click", closeTab); // Agrega el event listener para cerrar la pestaña
